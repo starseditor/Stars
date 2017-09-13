@@ -573,23 +573,25 @@ class Project:
         db = self.dataBase
         variableNames = db.variables.keys() #通过keys()函数获取到变量的名称
         matrixNames = db.matrices.keys() #通过keys()函数获取矩阵所有的键
-        nvar=len(variableNames)
-        nmat=len(matrixNames)
+        nvar=len(variableNames) #获取到变量的个数
+        nmat=len(matrixNames) #获取到矩阵的个数
         
-        so = "PROJECT DATABASE SUMMARY\n"
-        so = so +"Time Frequency: "+self.timeFreq
-        so = so +"\nTime Span: "+str(self.timeInfo[1])+" "+str(self.timeInfo[2])
-        so = so +"\nCross Sectional Units: "+str(len(self.regionNames))
-        so=so+"\nProject has %d variables and %d matrices.\n"%(nvar,nmat)
-        if nvar:
+        so = "PROJECT DATABASE SUMMARY\n" 
+        #利用一个名为so的字符串，不断连接新的内容，
+        # 最后输出一段总结性文字，其中\n表示换行
+        so = so +"Time Frequency: "+self.timeFreq #需要输出的参数变量包括timeFreq
+        so = so +"\nTime Span: "+str(self.timeInfo[1])+" "+str(self.timeInfo[2])#self.timeInfo[1]与self.timeInfo[2]
+        so = so +"\nCross Sectional Units: "+str(len(self.regionNames)) #获取共有多少片区域
+        so=so+"\nProject has %d variables and %d matrices.\n"%(nvar,nmat) #输出共有多少变量和多少个矩阵
+        if nvar:  #在有变量的条件下
             so = so+"\n"+"Variable Names: "+"\n\t"
             so = so + " ".join(variableNames)
             so = so + "\n" + db.varTypeSummary()
-        if nmat:
+        if nmat: ##在有矩阵的条件下
             so = so + "\n"+"Matrix Names: "+"\n\t"
             so = so + " ".join(matrixNames)
         try:
-            pdirectory = self.directory
+            pdirectory = self.directory #获取存储路径
             so = so + '\n'+"Project directory: "+pdirectory
         except:
             pass
