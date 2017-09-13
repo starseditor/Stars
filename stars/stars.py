@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Core module for Space-Time Analysis of Regional Systems
 ----------------------------------------------------------------------
