@@ -2414,7 +2414,7 @@ class App(GuiMixin, GuiMaker):   # or GuiMakerFrameMenu
                 if hasattr(self.project,"coords"):
                     txt="Scaling coordinates, please wait."
                     qd=sd.Warning(self.master,text=txt)
-                    self.project.scaleCoords() #改函数无用，属于Python GUI设置宽高
+                    self.project.scaleCoords() #改函数无用，属于Python GUI设置宽高。
                     qd.destroy() #该函数的作用是销毁这个和所有的后代小部件。
                 else:
                     self.report("no coords in project")
