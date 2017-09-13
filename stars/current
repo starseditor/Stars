@@ -1,0 +1,10 @@
+[data]
+files: current
+[weight]
+gal: states48
+
+[gis]
+gis: us48
+
+[graphics]
+screen: 1280 768

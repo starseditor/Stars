@@ -1,0 +1,15 @@
+[data]
+files = california
+
+[weight]
+gal = california_queen
+
+[gis]
+gis = california
+
+[graphics]
+screen = 1366 768.0001
+
+[projection]
+type = <function MercatorProj at 0x031E9030>
+

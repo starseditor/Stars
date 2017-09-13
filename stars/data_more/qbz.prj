@@ -1,0 +1,15 @@
+[data]
+files = qbz
+
+[weight]
+gal = qbz_queen
+
+[gis]
+gis = qbz
+
+[graphics]
+screen = 1366 768.0001
+
+[projection]
+type = <function MercatorProj at 0x02D24DB0>
+

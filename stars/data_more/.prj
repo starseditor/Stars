@@ -1,0 +1,14 @@
+[data]
+files = 
+
+[weight]
+
+[gis]
+gis = 
+
+[graphics]
+screen = 1440 900.0001
+
+[projection]
+type = <function AlbersEqualAreaProj at 0x038557F0>
+

@@ -1,0 +1,15 @@
+[data]
+files = test1
+
+[weight]
+gal = test1_queen
+
+[gis]
+gis = test1
+
+[graphics]
+screen = 1024 768.0001
+
+[projection]
+type = <function MercatorProj at 0x03279030>
+

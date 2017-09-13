@@ -1,0 +1,10 @@
+[data]
+files: test
+[weight]
+gal: test_queen
+
+[gis]
+gis: test
+
+[graphics]
+screen: 1280 864
