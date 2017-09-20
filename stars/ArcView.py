@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Reading ArcView projects for Space-Time Analysis of Regional Systems
 ----------------------------------------------------------------------
@@ -28,9 +29,9 @@ STARSHOME = options.getSTARSHOME()
 
 class ArcViewProject:
     """Handles the reading of ArcView shape and dbf files.
-    
+       ArcViewProject类负责处理阅读ArcView和dbf文件
     """
-    def __init__(self,shpName):
+    def __init__(self, shpName):
         projectDir = os.path.dirname(shpName)
         prefix = os.path.basename(shpName).split(".")[0]
         self.dbfFileName = projectDir + "/" + prefix + ".dbf"

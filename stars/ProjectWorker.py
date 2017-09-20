@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """ ProjectWorker.py
 
 Utilities for ProjectMaker.py for Space-Time Analysis of Regional Systems
@@ -60,7 +61,7 @@ class ProjectMaker:
     arc = 0 if using an csv file
     arc = 1 if using a arcview file
     """
-    def __init__(self,fileName,arc=1,prj=0):
+    def __init__(self, fileName, arc=1, prj=0):
         self.fileName = fileName
         self.setProjectFiles(fileName)
         self.setOriginalFiles(fileName)
@@ -83,8 +84,8 @@ class ProjectMaker:
         self.projPrefix = newPrefix
 
     def setProjectFiles(self,fileName):
-        self.projectDir = OS.path.dirname(fileName)
-        self.projPrefix = OS.path.basename(fileName)
+        self.projectDir = OS.path.dirname(fileName) #获取到文件所在的路径
+        self.projPrefix = OS.path.basename(fileName) #获取当前文件名称
         try:
             self.projPrefix = self.projPrefix.split(".")[0]
         except:

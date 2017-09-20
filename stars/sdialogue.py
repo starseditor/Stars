@@ -137,12 +137,12 @@ class SDialogue:
 
     def onOk(self):
         """handler for clicking ok button"""
-        results = {}
-        children = self.children.keys() #将所有变量储存在一个名为children的数组中
+        results = {} #初始化字典
+        children = self.children.keys() #将所有变量的键值存储
         for child in children: #遍历数组，分别将children数组中的每一个值赋给results数组
             results[child] = self.children[child].retrieve()
 
-        self.results=results
+        self.results=results #results的结果即为需要传递给画图函数的参数
         self.status = 1  #一旦点击按钮即将状态值设置为1
         self.quit()
     

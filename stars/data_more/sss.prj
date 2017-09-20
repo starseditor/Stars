@@ -1,0 +1,15 @@
+[data]
+files = sss
+
+[weight]
+gal = sss_rook sss_queen
+
+[gis]
+gis = sss
+
+[graphics]
+screen = 1440 900.0001
+
+[projection]
+type = None
+

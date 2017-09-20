@@ -49,7 +49,7 @@ from stars import DEVICE
 
 # set up color schemes
 #DEVICE = "desktop"
-def getColors(legendType,numberOfClasses):
+def getColors(legendType, numberOfClasses):
     cs = colorSchemes
     scheme = cs.getScheme(DEVICE,legendType,
                 numberOfClasses)
@@ -60,7 +60,7 @@ def getColors(legendType,numberOfClasses):
         return 0
 
 #print "default colors"
-SEQCOLORS=getColors("sequential",7) # default
+SEQCOLORS=getColors("sequential", 7) # default
 
 #VIEWBACKGROUND="white"
 SCREENFORFONT6 = 118 # XXX Move to Common.py
@@ -77,7 +77,7 @@ class Screen:
     """
     Get screen resolution for device for scaling Views.
     """
-    def __init__(self,root):
+    def __init__(self, root):
         """
         root (Tk root): Application level Tk window.
         """
@@ -108,7 +108,7 @@ class View(Screen):
         self.name = name
         self.master = master
         self.top = Toplevel(self.master)
-        self.top.protocol("WM_DELETE_WINDOW",self.cleanup)
+        self.top.protocol("WM_DELETE_WINDOW", self.cleanup)
         #self.setTitle()
         self.genericString = 'View'
         self.title = title
@@ -138,7 +138,7 @@ class View(Screen):
         # 1,1   1,2
         # 2,1   2,2
         # fill up first four then place new views in 1,1, position
-        sgeom = "%dx%d"%(self.width,self.height)
+        sgeom = "%dx%d"%(self.width, self.height)
         if not View.nViews % 4:
             s=sgeom+"+%d+%d"%(self.width,self.height + options.TOPOFSCREEN)
             self.top.geometry(s)
@@ -2811,11 +2811,11 @@ class Map(View,Subscriber):
         width (float): width of view XXX should be moved up a class
         height (float): height of view XXX should be moved up a class
         title (string): map title
-        classification (string): name of classification method for legend
+        classification (string): name of classification method for legend图例的分类方法名称
         nbins (int): number of bins for legends
         bins (list): of cut-off values for bins
         legend (int): 1=legend on, other, legend off
-        legendType (string): type of legend, used to select colorscheme
+        legendType (string): type of legend, used to select colorscheme 图例类型，用于选择配色方案
         """
         self.classification = classification
         self.nBins = nBins
@@ -4696,7 +4696,7 @@ class BoxPlot(View,Subscriber):
         ids = self.matcher.selected
 
     def unHighlightWidget(self,widgetIds=[]):
-        t1=time.time()
+        t1=time.time() #time模块里面的函数，返回当前时间的时间戳。 
         if widgetIds == []:
             ids = self.matcher.selected
             wids = self.getWidgetsForIds(ids)

@@ -462,7 +462,8 @@ class spMatrix:
         self.matType = "sparse"
 
     def full(self):
-        """Returns a full row standardized weights matrix."""
+        """Returns a full row standardized weights matrix.
+        返回一个整行标准化的权重矩阵。"""
         #print self.dict
         n = len(self.dict)
         w = zeros([n,n],Float)

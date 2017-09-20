@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Reading of database files (dbf) for Space-Time Analysis of Regional Systems
 ----------------------------------------------------------------------
@@ -67,7 +68,7 @@ class DbfLoader:
     def loadDbfFileName(self, dbfFileName):
         '''public: load the specified dbf file into the receiver
         jjk  02/13/98'''
-        dbfs = open(dbfFileName, 'rb')
+        dbfs = open(dbfFileName, 'rb') #二进制文件就用二进制方法读取'rb'
         self.loadDbfFile(dbfs)
         dbfs.close()
         self.fileName = dbfFileName
@@ -183,12 +184,23 @@ class DbfLoader:
         so+="\nNumber of records: %d"%n
         so+="\nNumber of fields: %d"%nfields
         print so
+        f = open(r'C:/record/stars/output.txt', 'a')
+        f.write("DBF name: %s"%self.filename+'\n')
+        f.write("Number of records: %d"%n+'\n')
+        f.write("Number of fields: %d"%nfields+'\n')
+        
         fields = self.get_field_names()
         types = self.get_field_types()
         maxf = max([len(field) for field in fields])
-        for field,type in zip(fields,types):
-            print "%21s %s"%(field,type)
-        
+        for field,type in zip(fields, types):
+            print "%21s %s"%(field, type)
+            f.write("%21s %s"%(field, type)+'\n')
+        # f.open(r"C:\record\stars\output.txt",'a')
+        # f.write(so)
+        # f.close
+        # print "write done!"
+        f.close
+        print "finished!"
         print "="*23
 
 
