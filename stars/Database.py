@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Matrix/Variable manager classes
 ----------------------------------------------------------------------
@@ -71,12 +72,12 @@ class Database:
         return self.matrices.keys()
 
     def varTypeSummary(self):
-        varTypes = self.varTypes.keys()
+        varTypes = self.varTypes.keys() #利用keys()函数获得变量的类型
         so = "Variable Classifications\n"
         for varType in varTypes:
-            vars = self.varTypes[varType]
-            nv = len(vars)
-            vars = " ".join(vars)
+            vars = self.varTypes[varType] #vars得到的是同一类型下的所有变量名
+            nv = len(vars) #nv代表的是变量的个数
+            vars = " ".join(vars) 
             so = so + "Type: "+varType
             so = so + "\nNumber: "+str(nv)
             so = so + "\n\t"+vars+"\n"

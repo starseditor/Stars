@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Mixin class to build app level interface
 
