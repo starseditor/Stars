@@ -1,4 +1,3 @@
-#coding:utf-8
 """
 Exploratory spatial data analysis module for STARS 
 ----------------------------------------------------------------------
@@ -34,21 +33,21 @@ from Utility import *
 from numpy.random import *
 import pdf
 import Markov
-import os
+
 class Moran:
-    """Moran's I measure of global spatial autocorrelation.莫兰指数全球空间自相关的量度
+    """Moran's I measure of global spatial autocorrelation.
 
     Arguments (3):
-        y: STARS variable   STARS的变量
-        w: STARS weight matrix   STARS的权重矩阵
-        permutations: Number of random spatial permutations (optional)  随机空间排列数（可选的）
-        varAssumption: "normalization"(default) or "randomization" (optional) 
+        y: STARS variable
+        w: STARS weight matrix
+        permutations: Number of random spatial permutations (optional)
+        varAssumption: "normalization"(default) or "randomization" (optional)
 
-    Attributes 属性
-        mi: Global Moran's I 全球莫兰指数
-        zi: z-value for mi 全球莫兰指数z值
-        ei: expected value 期望值
-        vi: variance of I 
+    Attributes
+        mi: Global Moran's I
+        zi: z-value for mi
+        ei: expected value
+        vi: variance of I
         si: standard deviation of I
         npvalue: probability value based on normality assumption
         varAssumption: assumption used to calculate vi
@@ -56,8 +55,8 @@ class Moran:
 
     Example Useage:
     """
-    def __init__(self, y, w, permutations=0, varAssumption = "normalization"):
-        self.variable = y #y代表的就是variable的值
+    def __init__(self,y,w,permutations=0,varAssumption = "normalization"):
+        self.variable = y
         if y.t == 1: # check for cs variable
             n=y.n
             y = reshape(y,(n,1))
@@ -66,13 +65,13 @@ class Moran:
         self.permutations=permutations
         self.w = w
         yd = y - mean(y)
-        den = matrixmultiply(transpose(yd), yd)
+        den = matrixmultiply(transpose(yd),yd)
         print sum(sum(den==0))
         # from here down changes for permutations (not done yet)
         # check for permutation and then permutate the yd
         ylag = lag(yd,w)
         self.ylag = lag(y,w)
-        num = matrixmultiply(transpose(yd), ylag)
+        num = matrixmultiply(transpose(yd),ylag)
         if len(shape(num)) > 1:
             self.mi = diag(num/den)
             self.zi = (self.mi - self.ei)/self.si
@@ -99,45 +98,32 @@ class Moran:
                 count += self.extreme(mi)
                 mip.append(mi)
             self.ppvalue = count/(permutations * 1.0)
-    def report(self):  #这个函数会输出
-        """Pretty formatting of summary results
-        结果的样式"""
+    def report(self):
+        """Pretty formatting of summary results"""
         head="Moran's I"
-        head = "%s\nVariable: %s\nWeight Matrix: %s"%(head, self.variable.name, self.w.name)
-        rowLabels = self.variable.timeString  #定义横坐标代表的因素
-        colLabels = ["MI", "z", "p-(N)"]  #定义纵坐标代表的因素
-        t = self.variable.t
-        m = reshape(self.mi,[t,1])
-        p = reshape(self.npvalue,[t,1])
-        z = reshape(self.zi,[t,1])
-        res = concatenate((m,z,p),1)
+        head = "%s\nVariable: %s\nWeight Matrix: %s"%(head,self.variable.name,self.w.name)
+        rowLabels = self.variable.timeString
+        colLabels = ["MI","z","p-(N)"]
+ 
+        t=self.variable.t
+        m=reshape(self.mi,[t,1])
+        p=reshape(self.npvalue,[t,1])
+        z=reshape(self.zi,[t,1])
+        res=concatenate((m,z,p),1)
         self.junk = res
         if self.permutations:
             colLabels.append("p-(P)")
-            pp = reshape(self.ppvalue, [t, 1])
-            res = concatenate((m, z, p, pp), 1)
-            head = "%s\nPermutations: %d"%(head, self.permutations)
+            pp =reshape(self.ppvalue,[t,1])
+            res=concatenate((m,z,p,pp),1)
+            head = "%s\nPermutations: %d"%(head,self.permutations)
         else:
 
-            res = concatenate((m,z,p), 1)
+            res=concatenate((m,z,p),1)
 
-        head = "%s\nExpected Value: %8.3f"%(head, self.ei)
-        
-        # f.write("Moran's I"+'\n')
-        # f.write("%s\nVariable: %s\nWeight Matrix: %s"%(head, self.variable.name, self.w.name)+'\n')
-        # f.write("%s\nPermutations: %d"%(head,self.permutations)+'\n')
-        
-        
-       
+        head = "%s\nExpected Value: %8.3f"%(head,self.ei)
         tab = Table(res,head=head,
             rowNames = rowLabels,
             colNames = colLabels).table
-        f = open(r'C:\record\stars\report.txt', 'w')
-        f.write("%s\nExpected Value: %8.3f"%(head,self.ei)+'\n')
-        f.write("MI  z  p-(N)"+'\n')
-        f.write(tab)
-        print "finished"
-        f.close()
         return(tab)
         
 

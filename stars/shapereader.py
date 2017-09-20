@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 """
 Reading ArcView shapefiles for Space-Time Analysis of Regional Systems
 ----------------------------------------------------------------------
@@ -18,7 +17,7 @@ Parsing of shapefiles. Based on modifications of original code by Luc Anselin (l
 
 from struct import *
 import time
-import sys
+
 
 # constants for shape types
 SHP_POINT = 1
@@ -74,17 +73,6 @@ class shape:
         print "   Xmin, Ymin:  " + ",".join(["%.8f" % i for i in self.shpbox[:2]])
         print "   Xmax, Ymax:  " + ",".join(["%.8f" % i for i in self.shpbox[2:]])
         print "======================="
-        f = open(r'C:/record/stars/output.txt', 'w')
-        f.write("Shape File Name: "+str(self.filename)+'\n')
-        f.write("Number of records: " + str(len(self.shplist))+'\n')
-        f.write("======================="+'\n')
-        f.write("Bounding box:"+'\n')
-        f.write("Xmin, Ymin:  " + ",".join(["%.8f" % i for i in self.shpbox[:2]]))
-        f.write('\n')
-        f.write("Xmax, Ymax:  " + ",".join(["%.8f" % i for i in self.shpbox[2:]]))
-        f.write("======================="+'\n')
-        f.close
-        print "write done!"
             
     def parttest(self):
         """
@@ -157,7 +145,7 @@ class shapefile(shape):
         """
         shape.__init__(self, filename)
         
-        # parse the file name to assess type解析文件名以评估类型
+        # parse the file name to assess type
         # first case: shp file
         self.shpopen()
         
@@ -176,15 +164,11 @@ class shapefile(shape):
             "Error: Make sure file is in working directory"
             return 1                    # TODO: need to handle error return
         shpread = f.read(100)        # first 100 bytes contain header
-        shplen = unpack('>l', shpread[24:28])   # length of file in words
-        flength = shplen[0]*2 - 100             # convert to bytes and take out header
-        self.shptype = unpack('<l', shpread[32:36])[0]   # type of shape file
-
-
-
-
+        shplen = unpack('>l',shpread[24:28])   # length of file in words
+        flength = shplen[0]*2 - 100                 # convert to bytes and take out header
+        self.shptype = unpack('<l',shpread[32:36])[0]   # type of shape file
 #        self.shpbox = list(unpack('<dddd',shpread[36:68]))   # bounding box as list
-        self.shpbox = bbox(list(unpack('<dddd', shpread[36:68])) )  # bounding box as bbox
+        self.shpbox = bbox(list(unpack('<dddd',shpread[36:68])) )  # bounding box as bbox
         i = 0
         shpread = f.read(flength)
         if self.shptype == SHP_POLYGON:
@@ -192,7 +176,7 @@ class shapefile(shape):
                 reclist=[]
                 # bounding box
 #                rbox=list(unpack('<dddd',shpread[i+12:i+44]))
-                rbox=bbox(list(unpack('<dddd', shpread[i+12:i+44])))    # as bbox            
+                rbox=bbox(list(unpack('<dddd',shpread[i+12:i+44])))    # as bbox            
                 reclist.append(rbox)
                 # number of parts
                 rnumpart=unpack('<l',shpread[i+44:i+48])[0]

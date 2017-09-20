@@ -59,9 +59,9 @@ class Database:
             return 0
     def getVariable(self,variableName):
         try:
-            return self.variables[variableName] #返回取到的内容
+            return self.variables[variableName]
         except:
-            mesg = "Undefined Variable: %s" % variableName
+            mesg="Undefined Variable: %s"%variableName
             Error(mesg)
             return 0
 

@@ -3449,33 +3449,32 @@ class App(GuiMixin, GuiMaker):   # or GuiMakerFrameMenu
             variance = d.results[2]
             perms = d.results[3]
             variable = self.project.dataBase.getVariable(varName)
-            w = self.project.dataBase.getMatrix(matrixName) #调用了两次getMatrix函数，参数都是variable
-            permutations = int(perms) #四个参数值，0，99，999，9999，是可选的
+            w = self.project.dataBase.getMatrix(matrixName)
+            permutations = int(perms)
             if permutations > 0:
                 txt="Running %d permutations, please wait."%permutations
                 qd=sd.Warning(self.master,txt)
-                m = Esda.Moran(variable,w,permutations,variance) #Moran需要的参数
-                qd.destroy() #参数传递后窗口关闭
+                m = Esda.Moran(variable,w,permutations,variance)
+                qd.destroy()
             else:
-                m = Esda.Moran(variable,w,permutations,variance) #选中0后，执行的直接传递参数
+                m = Esda.Moran(variable,w,permutations,variance)
             self.report(m.report())
             varName = varName
 
 
             # do graphs 做图
             graph_options = d.results[4]
-            #获取到的全部参数存储到一个results字典中
 
             if sum([ x[1] for x in graph_options]):
-                csLabels = variable.regionNames #将州名赋值给csLabels
-                varName = varName #人均收入变量
-                timeStrings = variable.timeString #时间年份
+                csLabels = variable.regionNames
+                varName = varName
+                timeStrings = variable.timeString
                 t=0
                 timePeriodString = "Spatial Lag %s %s"%(varName,timeStrings[t]) 
                 
                 yLabel = timePeriodString #显示在Scatter Plot页面的y轴标题。
                 xLabel = "%s %s"%(varName,timeStrings[t]) #显示在Scatter Plot页面的x轴标题。
-                name = "%s %s"%(varName,timeStrings[t]) #显示的是map图的标题
+                name = "%s %s"%(varName,timeStrings[t]) 
                 y=variable[:,0]
                 timePeriod = 0
             
@@ -3537,25 +3536,25 @@ class App(GuiMixin, GuiMaker):   # or GuiMakerFrameMenu
         varNames = self.get_CS_CSTS_variable_names(exclude=['Time'])
         d = sd.SDialogue("Local Moran's I")
         txt="""Computes Local Moran's I for the variable in question."""
-        entries = ['Variable'] #'Variable'类似于一个序列，与数组相似，可以进行对元素的访问
+        entries = ['Variable']
         sd.MultiEntry(d,varNames, entries, title='Choose a Variable',
-                      helpText=txt) 
+                      helpText=txt)
         
         matNames = self.getMatrixNames()
         entries = ['Matrix']
         txt="""Choose a weights matrix."""
         sd.MultiEntry(d,matNames, entries, title='Choose a Matrix',
-                      helpText=txt) #传递的是'Matrix'
+                      helpText=txt)
 
         values=[0,99,999,999,9999]
         txt = """Choose the number of permutations to use for inference."""
         sd.SpinEntry(d,title="Additional Options",label="Permutations",
-                     values=values,helpText=txt)  #传递的是values       
+                     values=values,helpText=txt)        
         
         graphTypes = 'Regime Map','Local I Map','Box Plot I','Density I'
         txt = """Choose the graphs to display."""
         sd.CheckButtons(d, title='Graphs Options', label='Types', values=graphTypes,
-                        helpText=txt) #传递的是graphtypes
+                        helpText=txt)
         
         d.draw()
         if d.status:
@@ -4932,7 +4931,7 @@ class App(GuiMixin, GuiMaker):   # or GuiMakerFrameMenu
                 nBins=nBins,
                 bins=bins,legendType=legendType)
         self.master.configure(cursor=options.CURSOR)
-#画地图的函数drawMap
+
     def quantileMap(self,trace=1):
         import sdialogue as sd
         varNames = self.get_CS_CSTS_variable_names(exclude=['Time'])
